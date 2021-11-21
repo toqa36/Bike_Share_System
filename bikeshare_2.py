@@ -2,11 +2,13 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'D:/FWD/bikeshare-2/chicago.csv',
-              'new york city': 'D:/FWD/bikeshare-2/new_york_city.csv',
-              'washington': 'D:/FWD/bikeshare-2/washington.csv' }
+CITY_DATA = { 'chicago': 'D:/FWD/bikeshare-2/Bike_Share_System/chicago.csv',
+              'new york city': 'D:/FWD/bikeshare-2/Bike_Share_System/new_york_city.csv',
+              'washington': 'D:/FWD/bikeshare-2/Bike_Share_System/washington.csv' }
 
 cities = ['chicago','new york city','washington']
+months = ['all','january', 'february', 'march', 'april', 'may', 'june']
+days = ['all','saturday', 'sunday', 'monday', 'tuesday', 'widnesday', 'thursday', 'friday']
 
 def get_filters():
     """
@@ -21,21 +23,36 @@ def get_filters():
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
     while True :
         print('Which City Do You Want \n 1- Chicago \n 2- New york city \n 3- Washington \n')
-        city = input().lower()
+        city = input()
         if city in cities:
             break
             
         else:
             print("Not Valid Input ")
             
-  
+            
+       
     # TO DO: get user input for month (all, january, february, ... , june)
-    print('which month do you want [all, january, february, march, april, may, june]')
-    month = input()
-        
+    while True :
+        print('which month do you want [all, january, february, march, april, may, june]')
+        month = input()
+        if month in months:
+            break
+        else:
+            print("Not Valid Input ")
+    
+   
+
+
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
-    print('which day do you want [all, saturday, sunday, monday, tuesday, widnesday, thursday, friday] ')
-    day = input().lower()
+    while True :
+        print('which day do you want [all, saturday, sunday, monday, tuesday, widnesday, thursday, friday] ')
+        day = input()
+        if day in days:
+            break
+            
+        else:
+            print("Not Valid Input ")
  
     print('-'*40)
     return city, month, day
@@ -62,7 +79,7 @@ def load_data(city, month, day):
     # extract month and day of week from Start Time to create new columns
     df['hour'] = df['Start Time'].dt.hour
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day_of_week'] = df['Start Time'].dt.day_name()
     
     if month != 'all':
         # use the index of the months list to get the corresponding int
@@ -185,7 +202,24 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-          
+
+
+def display_data(df):
+    answers = ['yes','no']
+    counter=1
+    rows=0
+    while True :
+        print('Do You want to see 5 rows of data ( yes/no )')
+        answer = input().lower()
+        if answer in answers:
+            if answer == 'yes':
+                print(df.iloc[rows:rows+5])
+                rows+=5
+            else:
+                break  
+            
+        else:
+            print("Not Valid Input ")      
   
 def main():
     while True:
