@@ -2,9 +2,9 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = { 'chicago': 'D:/FWD/bikeshare-2/Bike_Share_System/Data set/chicago.csv',
+              'new york city': 'D:/FWD/bikeshare-2/Bike_Share_System/Data set/new_york_city.csv',
+              'washington': 'D:/FWD/bikeshare-2/Bike_Share_System/Data set/washington.csv' }
 
 cities = ['chicago','new york city','washington']
 months = ['all','january', 'february', 'march', 'april', 'may', 'june']
@@ -82,7 +82,7 @@ def load_data(city, month, day):
     # extract month and day of week from Start Time to create new columns
     df['hour'] = df['Start Time'].dt.hour
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day_of_week'] = df['Start Time'].dt.day_name()
     
     if month != 'all':
         # use the index of the months list to get the corresponding int
